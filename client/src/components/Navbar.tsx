@@ -27,10 +27,14 @@ const Navbar = () => {
         {
           // Conditional rendering based on loginCheck state
           !loginCheck ? (
-            // Render login button if user is not logged in
+            <>
+            <button className="btn" type='button'>
+              <Link to='/register'>Sign Up</Link>
+            </button>
             <button className="btn" type='button'>
               <Link to='/login'>Login</Link>
             </button>
+            </>
           ) : (
             // Render logout button if user is logged in
             <button className="btn" type='button' onClick={() => {
