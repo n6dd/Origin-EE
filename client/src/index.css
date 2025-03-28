@@ -1706,3 +1706,23 @@ form [type='radio'] {
     align-content: center;
   }
 }
+
+
+
+/* Toggle */
+/* index.css */
+
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
