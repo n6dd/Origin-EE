@@ -1,17 +1,16 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-
-import Auth from '../utils/auth';  // Import the Auth utility for managing authentication state
-import { login } from "../api/authAPI";  // Import the login function from the API
-import { UserLogin } from "../interfaces/UserLogin";  // Import the interface for UserLogin
+import { Link } from "react-router-dom"; // Import Link for navigation
+import Auth from '../utils/auth';
+import { login } from "../api/authAPI";
+import { UserLogin } from "../interfaces/UserLogin";
 
 const Login = () => {
-  // State to manage the login form data
   const [loginData, setLoginData] = useState<UserLogin>({
     username: '',
     password: ''
   });
+  const [loading, setLoading] = useState(false); // Add loading state
 
-  // Handle changes in the input fields
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setLoginData({
@@ -20,16 +19,16 @@ const Login = () => {
     });
   };
 
-  // Handle form submission for login
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when submitting
     try {
-      // Call the login API endpoint with loginData
       const data = await login(loginData);
-      // If login is successful, call Auth.login to store the token in localStorage
       Auth.login(data.token);
     } catch (err) {
-      console.error('Failed to login', err);  // Log any errors that occur during login
+      console.error('Failed to login', err);
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -37,7 +36,6 @@ const Login = () => {
     <div className='form-container'>
       <form className='form login-form' onSubmit={handleSubmit}>
         <h1>Login</h1>
-        {/* Username input field */}
         <div className="form-group">
           <label>Username</label>
           <input 
@@ -46,9 +44,9 @@ const Login = () => {
             name='username'
             value={loginData.username || ''}
             onChange={handleChange}
+            required
           />
         </div>
-        {/* Password input field */}
         <div className="form-group">
           <label>Password</label>
           <input 
@@ -57,34 +55,47 @@ const Login = () => {
             name='password'
             value={loginData.password || ''}
             onChange={handleChange}
+            required
           />
         </div>
-        {/* Submit button for the login form */}
         <div className="form-group">
-        // Inside your Login.tsx component
-<button
-  type="submit"
-  disabled={loading}
-  className={`login-button ${loading ? 'loading' : ''}`}
->
-  {loading ? (
-    <>
-      <svg className="spinner" viewBox="0 0 50 50">
-        <circle
-          className="path"
-          cx="25"
-          cy="25"
-          r="20"
-          fill="none"
-          strokeWidth="5"
-        ></circle>
-      </svg>
-      Signing in...
-    </>
-  ) : (
-    'Sign in'
-  )}
-</button>
+          <button
+            type="submit"
+            disabled={loading}
+            className={`login-button ${loading ? 'loading' : ''}`}
+          >
+            {loading ? (
+              <>
+                <svg className="spinner" viewBox="0 0 50 50">
+                  <circle
+                    className="path"
+                    cx="25"
+                    cy="25"
+                    r="20"
+                    fill="none"
+                    strokeWidth="5"
+                  ></circle>
+                </svg>
+                Signing in...
+              </>
+            ) : (
+              'Sign in'
+            )}
+          </button>
+        </div>
+        
+        {/* Add sign-up section */}
+        <div className="signup-prompt">
+          <p>No account? <Link to="/signup">Sign up!</Link></p>
+          <Link to="/signup">
+            <button 
+              type="button" 
+              className="signup-button"
+              disabled={loading}
+            >
+              Create Account
+            </button>
+          </Link>
         </div>
       </form>
     </div>
