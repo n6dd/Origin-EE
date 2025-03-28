@@ -25,6 +25,7 @@
     "wait-on": "^7.2.0"
   },
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -32,5 +33,8 @@
     "openai": "^4.89.0",
     "pg": "^8.14.1",
     "sequelize": "^6.37.6"
+=======
+    "bootstrap": "^5.3.3"
+>>>>>>> 5959f0310f1c07d295f46f5f80f2bd280de2be7c
   }
 }
