@@ -11,13 +11,15 @@ router.get('/', async (_req: Request, res: Response) => {
   try {
     console.log("Fetching news from NewsAPI");
 
-    const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
+    // Fetch news using Axios from NewsAPI
+    const response = await axios.get('https://newsapi.org/v2/top-headlines', {
       params: {
-        country: 'us',
+        country: 'us', // You can change the country if needed
         apiKey: process.env.NEWS_API_KEY,
       }
     });
 
+    // Return articles to the frontend
     res.status(200).json(response.data.articles);
   } catch (error: any) {
     console.error('Error fetching news from NewsAPI:', error.message);
