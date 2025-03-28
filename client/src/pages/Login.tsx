@@ -20,9 +20,13 @@ const Login = () => {
     });
   };
 
+  // State to manage loading state during login
+  const [loading, setLoading] = useState(false);
+
   // Handle form submission for login
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when login starts
     try {
       // Call the login API endpoint with loginData
       const data = await login(loginData);
@@ -30,6 +34,8 @@ const Login = () => {
       Auth.login(data.token);
     } catch (err) {
       console.error('Failed to login', err);  // Log any errors that occur during login
+    } finally {
+      setLoading(false); // Set loading to false when login completes
     }
   };
 
@@ -61,7 +67,6 @@ const Login = () => {
         </div>
         {/* Submit button for the login form */}
         <div className="form-group">
-        // Inside your Login.tsx component
 <button
   type="submit"
   disabled={loading}
