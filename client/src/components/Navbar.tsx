@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
-import './Button.css'; // Your CSS file
+import './Button.css';
 
-// Optional: Define style type with custom CSS variables
+// Define CSS custom variable types
 interface CustomStyle extends React.CSSProperties {
   '--btn-bg'?: string;
   '--btn-bg-hover'?: string;
@@ -17,11 +17,6 @@ const Navbar = () => {
       setLoginCheck(true);
     }
   }, []);
-
-  const handleLogout = () => {
-    auth.logout();
-    setLoginCheck(false);
-  };
 
   const tabs = [
     { label: 'Home', to: '/' },
@@ -43,14 +38,13 @@ const Navbar = () => {
 
   return (
     <header className="navbar-container">
-      <div className="navbar-box">
-        
+      <div className="navbar-inner">
         {/* Left: Title */}
         <div className="nav-title">
           Authentication Review
         </div>
 
-        {/* Center: Navigation Tabs */}
+        {/* Center: Tabs */}
         <nav className="nav-tabs">
           {tabs.map((tab) => (
             <Link
@@ -68,7 +62,10 @@ const Navbar = () => {
         <div className="nav-login">
           {loginCheck ? (
             <button
-              onClick={handleLogout}
+              onClick={() => {
+                auth.logout();
+                setLoginCheck(false);
+              }}
               className="nav-button"
               style={customStyle}
             >
