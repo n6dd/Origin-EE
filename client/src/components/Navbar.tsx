@@ -66,10 +66,10 @@ const Navbar = () => {
   // Navigation tabs
   const tabs = [
     { label: "Home", to: "/" },
-    { label: "Pricing", to: "/pricing" },
-    { label: "Features", to: "/features" },
-    { label: "Docs", to: "/docs" },
-    { label: "Blog", to: "/blog" },
+    { label: "ChatGpt", to: "/ChatGpt" },
+    { label: "Trending", to: "/Trending" },
+    { label: "Access", to: "/Access" },
+    { label: "Contact", to: "/Contact" },
   ];
 
   return (

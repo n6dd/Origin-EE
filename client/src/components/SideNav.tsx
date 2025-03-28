@@ -2,11 +2,19 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHome, FaShoppingCart, FaTag, FaChartBar, FaUsers, FaBars } from "react-icons/fa";
 import "./SideNav.css";
+import auth from "../utils/auth";
 
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const isLogin = auth.loggedIn(); // Check if the user is logged in
+
+  if (!isLogin) {
+    return null; // Don't render the sidebar if not logged in
+  }
+  
 
   return (
     <div className={`sidenav ${isOpen ? "open" : "closed"}`}>
@@ -15,25 +23,25 @@ const SideNav = () => {
       </button>
       
       <div className="sidenav-links">
-        <Link to="/dashboard" className="sidenav-link">
+        <Link to="/Sports" className="sidenav-link">
           <FaHome className="sidenav-icon" />
-          {isOpen && "Dashboard"}
+          {isOpen && "Sports"}
         </Link>
-        <Link to="/sales" className="sidenav-link">
+        <Link to="/Travel" className="sidenav-link">
           <FaShoppingCart className="sidenav-icon" />
-          {isOpen && "Sales"}
+          {isOpen && "Travel"}
         </Link>
-        <Link to="/products" className="sidenav-link">
+        <Link to="/Gaming" className="sidenav-link">
           <FaTag className="sidenav-icon" />
-          {isOpen && "Products"}
+          {isOpen && "Gaming"}
         </Link>
-        <Link to="/analytics" className="sidenav-link">
+        <Link to="/Entertainment" className="sidenav-link">
           <FaChartBar className="sidenav-icon" />
-          {isOpen && "Analytics"}
+          {isOpen && "Entertainment"}
         </Link>
-        <Link to="/members" className="sidenav-link">
+        <Link to="/Puzzle" className="sidenav-link">
           <FaUsers className="sidenav-icon" />
-          {isOpen && "Members"}
+          {isOpen && "Puzzle"}
         </Link>
       </div>
     </div>
