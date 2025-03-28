@@ -28,11 +28,11 @@ const Login = () => {
     e.preventDefault();
     setLoading(true); // Set loading to true when login starts
     try {
-      // Call the login API endpoint with loginData
       const data = await login(loginData);
       // If login is successful, call Auth.login to store the token in localStorage
       Auth.login(data.token);
     } catch (err) {
+      setLoading(false); // Reset loading to false if login fails
       console.error('Failed to login', err);  // Log any errors that occur during login
     } finally {
       setLoading(false); // Set loading to false when login completes

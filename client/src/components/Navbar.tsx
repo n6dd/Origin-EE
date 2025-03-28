@@ -1,50 +1,93 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
+import './Button.css'; // Your CSS file
+
+// Optional: Define style type with custom CSS variables
+interface CustomStyle extends React.CSSProperties {
+  '--btn-bg'?: string;
+  '--btn-bg-hover'?: string;
+}
 
 const Navbar = () => {
-  // State to track the login status
   const [loginCheck, setLoginCheck] = useState(false);
 
-  // Function to check if the user is logged in using auth.loggedIn() method
-  const checkLogin = () => {
+  useEffect(() => {
     if (auth.loggedIn()) {
-      setLoginCheck(true);  // Set loginCheck to true if user is logged in
+      setLoginCheck(true);
     }
+  }, []);
+
+  const handleLogout = () => {
+    auth.logout();
+    setLoginCheck(false);
   };
 
-  // useEffect hook to run checkLogin() on component mount and when loginCheck state changes
-  useEffect(() => {
-    checkLogin();  // Call checkLogin() function to update loginCheck state
-  }, [loginCheck]);  // Dependency array ensures useEffect runs when loginCheck changes
+  const tabs = [
+    { label: 'Home', to: '/' },
+    { label: 'Pricing', to: '/pricing' },
+    { label: 'Features', to: '/features' },
+    { label: 'Docs', to: '/docs' },
+    { label: 'Blog', to: '/blog' },
+  ];
+
+  const theme = {
+    default: '#6b7280',       // gray-500
+    hover: '#4b5563',         // darker gray
+  };
+
+  const customStyle: CustomStyle = {
+    '--btn-bg': theme.default,
+    '--btn-bg-hover': theme.hover,
+  };
 
   return (
-    <div className="display-flex justify-space-between align-center py-2 px-5 mint-green">
-      <h1>
-        Authentication Review
-      </h1>
-      <div>
-        {
-          // Conditional rendering based on loginCheck state
-          !loginCheck ? (
-            <>
-            <button className="btn" type='button'>
-              <Link to='/register'>Sign Up</Link>
+    <header className="navbar-container">
+      <div className="navbar-box">
+        
+        {/* Left: Title */}
+        <div className="nav-title">
+          Authentication Review
+        </div>
+
+        {/* Center: Navigation Tabs */}
+        <nav className="nav-tabs">
+          {tabs.map((tab) => (
+            <Link
+              key={tab.label}
+              to={tab.to}
+              className="nav-button"
+              style={customStyle}
+            >
+              {tab.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right: Login/Logout */}
+        <div className="nav-login">
+          {loginCheck ? (
+            <button
+              onClick={handleLogout}
+              className="nav-button"
+              style={customStyle}
+            >
+              Logout
             </button>
-            <button className="btn" type='button'>
-              <Link to='/login'>Login</Link>
-            </button>
-            </>
           ) : (
-            // Render logout button if user is logged in
-            <button className="btn" type='button' onClick={() => {
-              auth.logout();  // Call logout() method from auth utility on button click
-            }}>Logout</button>
-          )
-        }
+            <Link to="/login">
+              <button
+                className="nav-button"
+                style={customStyle}
+              >
+                Login
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
-    </div>
-  )
-}
+    </header>
+  );
+};
 
 export default Navbar;
