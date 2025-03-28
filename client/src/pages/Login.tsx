@@ -20,7 +20,7 @@ const Login = () => {
     });
   };
 
-  // State to manage the loading state during login
+  // State to manage loading state during login
   const [loading, setLoading] = useState(false);
 
   // Handle form submission for login
@@ -34,6 +34,8 @@ const Login = () => {
     } catch (err) {
       setLoading(false); // Reset loading to false if login fails
       console.error('Failed to login', err);  // Log any errors that occur during login
+    } finally {
+      setLoading(false); // Set loading to false when login completes
     }
   };
 
@@ -65,7 +67,6 @@ const Login = () => {
         </div>
         {/* Submit button for the login form */}
         <div className="form-group">
-        // Inside your Login.tsx component
 <button
   type="submit"
   disabled={loading}
