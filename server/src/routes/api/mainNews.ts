@@ -1,17 +1,29 @@
 import express from 'express';
+import axios from 'axios';
 import type { Request, Response } from 'express';
-// import { User } from '../../models/index.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const router = express.Router();
 
-// GET /users - Get all users
+// GET /api/news - Fetch news from NewsAPI
 router.get('/', async (_req: Request, res: Response) => {
   try {
-    console.log("MAIN NEWS API PLACEHOLDER")
-    res.status(200).json("MAIN NEWS API PLACEHOLDER")
+    console.log("Fetching news from NewsAPI");
+
+    // Fetch news using Axios from NewsAPI
+    const response = await axios.get('https://newsapi.org/v2/top-headlines', {
+      params: {
+        country: 'us', // You can change the country if needed
+        apiKey: process.env.NEWS_API_KEY,
+      }
+    });
+
+    // Return articles to the frontend
+    res.status(200).json(response.data.articles);
   } catch (error: any) {
-    console.error(error)
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching news from NewsAPI:', error.message);
+    res.status(500).json({ message: 'Failed to fetch news' });
   }
 });
 

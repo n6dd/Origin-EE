@@ -2,12 +2,22 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
-import App from './App.tsx';
+import App from './App';
+import ErrorPage from './pages/ErrorPage';
+import Access from './pages/Access';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
-import ErrorPage from './pages/ErrorPage.tsx';
-import Home from './pages/Home.tsx';
-import Login from './pages/Login.tsx';
-import SignUp from './pages/SignUp.tsx';
+import ChatGpt from './pages/ChatGpt';
+import Contact from './pages/Contact';
+import Entertainment from './pages/Entertainment';
+import Gaming from './pages/Gaming';
+import Puzzle from './pages/Puzzle';
+import Home from './pages/Home';
+import Sports from './pages/Sports';
+import Trending from './pages/Trending';
+import Travel from './pages/Travel';
+
 
 const router = createBrowserRouter([
   {
@@ -17,21 +27,60 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
-      }, 
-      {
-        path: '/register',
-        element: <SignUp/>
+        element: <Home />,
       },
       {
-        path: '/login',
-        element: <Login />
-      }, 
-    ]
-  }
-])
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'register',
+        element: <SignUp />,
+      },
+      {
+        path: 'ChatGpt',
+        element: <ChatGpt />,
+      },
+      {
+        path: 'Contact',
+        element: <Contact />,
+      },
+      {
+        path: 'Entertainment',
+        element: <Entertainment />,
+      },
+      {
+        path: 'Gaming',
+        element: <Gaming />,
+      },
+      {
+        path: 'Access',
+        element: <Access />,
+      },
+      {
+        path: 'Puzzle',
+        element: <Puzzle />,
+      },
+      {
+        path: 'Sports',
+        element: <Sports />,
+      },
+      {
+        path: 'Travel',
+        element: <Travel />,
+      },
+      {
+        path: 'Trending',
+        element: <Trending />,
+      },
+
+    ],
+  },
+]);
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  ReactDOM.createRoot(rootElement).render(
+    <RouterProvider router={router} />
+  );
 }
