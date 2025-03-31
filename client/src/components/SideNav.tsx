@@ -4,6 +4,8 @@ import { FaHome, FaShoppingCart, FaTag, FaChartBar, FaUsers, FaBars } from "reac
 import "./SideNav.css";
 import auth from "../utils/auth";
 
+import { MdOutlineSportsFootball } from "react-icons/md";
+
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,11 +26,11 @@ const SideNav = () => {
       
       <div className="sidenav-links">
         <Link to="/Sports" className="sidenav-link">
-          <FaHome className="sidenav-icon" />
+        <MdOutlineSportsFootball />
           {isOpen && "Sports"}
         </Link>
         <Link to="/Travel" className="sidenav-link">
-          <FaShoppingCart className="sidenav-icon" />
+          <FaShoppingCart className="sidenav-icon" /> {/* Add your icon here */}
           {isOpen && "Travel"}
         </Link>
         <Link to="/Gaming" className="sidenav-link">
