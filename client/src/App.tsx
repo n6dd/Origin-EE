@@ -1,3 +1,6 @@
+import './App.css'; 
+import Navbar from './components/Navbar';
+import SideNav from './components/SideNav';
 import { Outlet } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
