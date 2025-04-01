@@ -30,7 +30,7 @@ const SideNav = () => {
           {isOpen && "Sports"}
         </Link>
         <Link to="/Travel" className="sidenav-link">
-          <FaShoppingCart className="sidenav-icon" /> {/* Add your icon here */}
+          <FaShoppingCart className="sidenav-icon" /> {}
           {isOpen && "Travel"}
         </Link>
         <Link to="/Gaming" className="sidenav-link">

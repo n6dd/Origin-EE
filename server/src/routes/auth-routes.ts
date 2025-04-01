@@ -30,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
   const secretKey = process.env.JWT_SECRET_KEY || '';
 
   // Generate a JWT token for the authenticated user
-  const token = jwt.sign({ username }, secretKey, { expiresIn: '12h' });
+  const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
   return res.json({ token });  // Send the token as a JSON response
 } catch (error) {
   console.error('Error during login:', error);  // Log any errors that occur during login
@@ -38,24 +38,10 @@ export const login = async (req: Request, res: Response) => {
 }
 };
 
-export const signUp = async (req: Request, res: Response) => {
-
-  const newUser = await User.create(req.body);
-
-  // Get the secret key from environment variables
-  const secretKey = process.env.JWT_SECRET_KEY || '';
-
-  // Generate a JWT token for the authenticated user
-  const token = jwt.sign({ username: newUser.username }, secretKey, { expiresIn: '12h' });
-  return res.json({ token });  // Send the token as a JSON response
-};
-
-
 // Create a new router instance
 const router = Router();
 
 // POST /login - Login a user
 router.post('/login', login);  // Define the login route
-router.post('/register', signUp);
 
 export default router;  // Export the router instance
