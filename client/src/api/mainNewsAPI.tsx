@@ -1,25 +1,27 @@
 import Auth from '../utils/auth';
 
-const retrieveNews = async () => {
+const retrieveNews = async (category?: string, page: number = 1, pageSize: number = 30) => {
   try {
-    const response = await fetch('/api/news', {
+    const url = category
+      ? `/api/news/${category}?page=${page}&pageSize=${pageSize}`
+      : `/api/news?page=${page}&pageSize=${pageSize}`;
+
+    const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Auth.getToken()}`
-      }
+        Authorization: `Bearer ${Auth.getToken()}`,
+      },
     });
-    const data = await response.json();
 
-    if(!response.ok) {
-      throw new Error('Invalid user API response, check network tab!');
+    if (!response.ok) {
+      throw new Error(`Invalid API response for ${category || 'main news'}`);
     }
 
-    return data;
-
-  } catch (err) { 
-    console.log('Error from data retrieval:', err);
-    return [];
+    return await response.json();
+  } catch (err) {
+    console.log(`Error retrieving ${category || 'main'} news:`, err);
+    return { articles: [], totalResults: 0 }; 
   }
-}
+};
 
 export { retrieveNews };

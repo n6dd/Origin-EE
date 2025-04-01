@@ -12,75 +12,33 @@ import ChatGpt from './pages/ChatGpt';
 import Contact from './pages/Contact';
 import Entertainment from './pages/Entertainment';
 import Gaming from './pages/Gaming';
-import Puzzle from './pages/Puzzle';
 import Home from './pages/Home';
 import Sports from './pages/Sports';
 import Trending from './pages/Trending';
 import Travel from './pages/Travel';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />, 
     children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'register',
-        element: <SignUp />,
-      },
-      {
-        path: 'ChatGpt',
-        element: <ChatGpt />,
-      },
-      {
-        path: 'Contact',
-        element: <Contact />,
-      },
-      {
-        path: 'Entertainment',
-        element: <Entertainment />,
-      },
-      {
-        path: 'Gaming',
-        element: <Gaming />,
-      },
-      {
-        path: 'Access',
-        element: <Access />,
-      },
-      {
-        path: 'Puzzle',
-        element: <Puzzle />,
-      },
-      {
-        path: 'Sports',
-        element: <Sports />,
-      },
-      {
-        path: 'Travel',
-        element: <Travel />,
-      },
-      {
-        path: 'Trending',
-        element: <Trending />,
-      },
-
+      { index: true, element: <Home /> },
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <SignUp /> },
+      { path: 'chatgpt', element: <ChatGpt /> },
+      { path: 'contact', element: <Contact /> },
+      { path: 'entertainment', element: <Entertainment /> },
+      { path: 'gaming', element: <Gaming /> },
+      { path: 'access', element: <Access /> },
+      { path: 'sports', element: <Sports /> },
+      { path: 'travel', element: <Travel /> },
+      { path: 'trending', element: <Trending /> },
     ],
   },
 ]);
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(
-    <RouterProvider router={router} />
-  );
+  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 }

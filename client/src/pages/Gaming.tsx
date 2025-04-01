@@ -1,11 +1,7 @@
-import React from 'react'
+import NewsComponent from "../components/NewsComponent";
 
 const Gaming = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <NewsComponent category="Technology" />;
+};
 
-export default Gaming
+export default Gaming;

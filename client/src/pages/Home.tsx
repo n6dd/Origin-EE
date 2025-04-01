@@ -1,9 +1,8 @@
-import React from 'react'
+import NewsComponent from "../components/NewsComponent";
+import './News.css'
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  return <NewsComponent category="General"/>;
+};
 
-export default Home
+export default Home;

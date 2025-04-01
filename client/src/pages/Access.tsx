@@ -4,7 +4,6 @@ import type { UserData } from "../interfaces/UserData";
 import ErrorPage from "./ErrorPage";
 import UserList from '../components/Users';
 import auth from '../utils/auth';
-import { retrieveNews } from "../api/mainNewsAPI";
 
 const Access = () => {
 
@@ -50,15 +49,13 @@ const Access = () => {
                         <h1>
                             Login to view all your friends!
                         </h1>
-                    </div>
-                ) : (
-                    <>
-                    <button type="button" onClick={ async() => await retrieveNews()}>API TEST</button>
-                    <UserList users={users} />
+                                </div>
+                            ) : (
+                                <UserList users={users} />
+                            )
+                        }
                     </>
-                )}
-        </>
-    );
-};
+    )}
+        
 
 export default Access;

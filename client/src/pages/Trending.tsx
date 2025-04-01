@@ -1,9 +1,7 @@
-import React from 'react'
+import NewsComponent from "../components/NewsComponent";
 
 const Trending = () => {
-  return (
-    <div>Trending</div>
-  )
-}
+  return <NewsComponent category="" />;
+};
 
-export default Trending
+export default Trending;

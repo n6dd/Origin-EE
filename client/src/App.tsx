@@ -1,4 +1,4 @@
-import './App.css'; // Make sure this line is included at the top
+import './App.css'; 
 import Navbar from './components/Navbar';
 import SideNav from './components/SideNav';
 import { Outlet } from 'react-router-dom';

@@ -1,9 +1,7 @@
-import React from 'react'
+import NewsComponent from "../components/NewsComponent";
 
 const Entertainment = () => {
-  return (
-    <div>Entertainment</div>
-  )
-}
+  return <NewsComponent category="Entertainment" />;
+};
 
-export default Entertainment
+export default Entertainment;
