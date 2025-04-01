@@ -27,7 +27,7 @@ app.use((_req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
+sequelize.sync({force: forceDatabaseRefresh}).then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
