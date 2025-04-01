@@ -24,6 +24,10 @@ const NewsComponent = ({ category }: { category?: string }) => {
   const [page, setPage] = useState<number>(1); 
   const [totalArticles, setTotalArticles] = useState<number>(0); 
   const articlesPerPage = 12;
+const API_URL = "http://localhost:3001/news";
+
+const NewsComponent = () => {
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -87,6 +91,18 @@ const NewsComponent = ({ category }: { category?: string }) => {
           Next
         </button>
       </div>
+  }, []);
+
+  return (
+    <div>
+      <h1>Latest News</h1>
+      {articles.map((article, index) => (
+        <div key={index}>
+          <h3>{article.title}</h3>
+          <p>{article.description}</p>
+          <a href={article.url} target="_blank">Read More</a>
+        </div>
+      ))}
     </div>
   );
 };

@@ -1,46 +1,115 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import auth from '../utils/auth';
+// =============================================================================
+// Navbar.tsx - Top-level navigation with theme toggle + login/logout controls
+// =============================================================================
+
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FiMoon, FiSun } from "react-icons/fi";
+import auth from "../utils/auth";
+import "./Navbar.css";
+
+// =============================================================================
+// Component: Theme Toggle Button
+// =============================================================================
+
+interface SliderToggleProps {
+  selected: "light" | "dark";
+  setSelected: (val: "light" | "dark") => void;
+}
+
+const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
+  return (
+    <div className="theme-toggle-wrapper">
+      <button
+        className={`theme-toggle-button ${selected === "light" ? "selected" : ""}`}
+        onClick={() => setSelected("light")}
+      >
+        <FiSun className="icon" />
+        Light
+      </button>
+      <button
+        className={`theme-toggle-button ${selected === "dark" ? "selected" : ""}`}
+        onClick={() => setSelected("dark")}
+      >
+        <FiMoon className="icon" />
+        Dark
+      </button>
+      <div className={`theme-slider ${selected === "dark" ? "right" : "left"}`} />
+    </div>
+  );
+};
+
+// =============================================================================
+// Component: Navbar
+// =============================================================================
 
 const Navbar = () => {
-  // State to track the login status
   const [loginCheck, setLoginCheck] = useState(false);
 
-  // Function to check if the user is logged in using auth.loggedIn() method
-  const checkLogin = () => {
-    if (auth.loggedIn()) {
-      setLoginCheck(true);  // Set loginCheck to true if user is logged in
-    }
-  };
+  // IDEA: Theme defaults to stored value or 'light'
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const saved = localStorage.getItem("theme");
+    return saved === "dark" ? "dark" : "light";
+  });
 
-  // useEffect hook to run checkLogin() on component mount and when loginCheck state changes
+  // EFFECT: Check auth status on mount
   useEffect(() => {
-    checkLogin();  // Call checkLogin() function to update loginCheck state
-  }, [loginCheck]);  // Dependency array ensures useEffect runs when loginCheck changes
+    if (auth.loggedIn()) setLoginCheck(true);
+  }, []);
+
+  // EFFECT: Apply and persist theme class to body
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark" : "";
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // Navigation tabs
+  const tabs = [
+    { label: "Home", to: "/" },
+    { label: "ChatGpt", to: "/ChatGpt" },
+    { label: "Trending", to: "/Trending" },
+    { label: "Access", to: "/Access" },
+    { label: "Contact", to: "/Contact" },
+  ];
 
   return (
-    <div className="display-flex justify-space-between align-center py-2 px-5 mint-green">
-      <h1>
-        Authentication Review
-      </h1>
-      <div>
-        {
-          // Conditional rendering based on loginCheck state
-          !loginCheck ? (
-            // Render login button if user is not logged in
-            <button className="btn" type='button'>
-              <Link to='/login'>Login</Link>
+    <header className="navbar">
+      <div className="navbar-inner">
+
+        {/* Title */}
+        <h1 className="nav-title">Authentication Review</h1>
+
+        {/* Center nav links */}
+        <nav className="nav-tabs">
+          {tabs.map((tab) => (
+            <Link key={tab.label} to={tab.to} className="nav-link">
+              {tab.label.toUpperCase()}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right-side: Login/Logout + Theme Toggle */}
+        <div className="nav-actions">
+          {loginCheck ? (
+            <button
+              className="nav-link"
+              onClick={() => {
+                auth.logout();
+                setLoginCheck(false);
+              }}
+            >
+              LOGOUT
             </button>
           ) : (
-            // Render logout button if user is logged in
-            <button className="btn" type='button' onClick={() => {
-              auth.logout();  // Call logout() method from auth utility on button click
-            }}>Logout</button>
-          )
-        }
+            <Link to="/login" className="nav-link">
+              LOGIN
+            </Link>
+          )}
+          <SliderToggle selected={theme} setSelected={setTheme} />
+        </div>
       </div>
-    </div>
-  )
-}
+    </header>
+  );
+};
 
 export default Navbar;

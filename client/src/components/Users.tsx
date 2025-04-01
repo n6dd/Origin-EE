@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { UserData } from "../interfaces/UserData";
-// import auth from '../utils/auth';   - not needed so far- Josie
+//'auth' is declared but its value is never read.ts(6133)
 
 // Define the props for the component
 interface UserListProps {
